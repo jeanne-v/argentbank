@@ -272,6 +272,40 @@ body {
   margin-bottom: 2rem;
 }
 
+.edit-infos-form {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.edit-infos-form input:first-of-type,
+.edit-infos-form button:first-of-type {
+  justify-self: end;
+}
+
+@media (max-width: 600px) {
+  .edit-infos-form input,
+  .edit-infos-form input:first-of-type {
+    grid-column: 1/3;
+    justify-self: center;
+  }
+}
+
+.edit-infos-form input {
+  padding: 5px;
+  font-size: 1.2rem;
+  width: min-content;
+}
+
+.edit-infos-form button {
+  width: 104px;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #ae1ce2;
+  border: none;
+  color: #fff;
+}
+
 .transaction-button {
   display: block;
   width: 100%;
