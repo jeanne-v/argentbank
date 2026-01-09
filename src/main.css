@@ -205,6 +205,11 @@ body {
   font-size: 1.2rem;
 }
 
+.sign-in-error {
+  color: #de0b0b;
+  margin-bottom: 0;
+}
+
 .footer {
   display: flex;
   justify-content: center;

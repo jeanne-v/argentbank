@@ -1,5 +1,5 @@
-import Hero from "../../components/Hero/Hero";
-import Feature from "../../components/Feature/Feature";
+import Hero from "../../components/Hero";
+import Feature from "../../components/Feature";
 
 import chatIcon from "../../assets/icon-chat.png";
 import moneyIcon from "../../assets/icon-money.png";
