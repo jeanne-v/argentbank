@@ -1,4 +1,4 @@
-import { login } from "../../features/auth/authSlice";
+import { login } from "../../slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router";
 
@@ -7,7 +7,7 @@ export default function LogIn() {
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
-  async function submitLogInForm(formData) {
+  function submitLogInForm(formData) {
     const data = {
       email: formData.get("username"),
       password: formData.get("password"),

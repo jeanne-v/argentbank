@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { updateUser } from "../../features/user/userSlice";
+import { updateUser } from "../../slices/userSlice";
 
 import AccountBalance from "../../components/AccountBalance";
 import accounts from "../../accounts-placeholder-data";

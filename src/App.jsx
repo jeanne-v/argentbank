@@ -9,7 +9,7 @@ import Profile from "./pages/Profile";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
-import { fetchUser } from "./features/user/userSlice";
+import { fetchUser } from "./slices/userSlice";
 
 export default function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
