@@ -29,6 +29,8 @@ const login = createAsyncThunk("login", async (credentials, { rejectWithValue })
   }
 });
 
+const logout = createAsyncThunk("logout", async () => {});
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -47,9 +49,10 @@ const authSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+      .addCase(logout.fulfilled, () => initialState);
   },
 });
 
 export default authSlice.reducer;
-export { login };
+export { login, logout };
