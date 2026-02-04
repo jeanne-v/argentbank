@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { updateUser } from "../../slices/userSlice";
 
 import AccountBalance from "../../components/AccountBalance";
-import accounts from "../../accounts-placeholder-data";
+import { fetchAccounts } from "../../slices/accountsSlice";
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -14,6 +14,14 @@ export default function Profile() {
   const userToken = useSelector((state) => state.auth.userToken);
 
   const [isInEditMode, setIsInEditMode] = useState(false);
+
+  const accounts = useSelector((state) => state.accounts.data);
+
+  useEffect(() => {
+    if (!accounts) {
+      dispatch(fetchAccounts());
+    }
+  }, [dispatch, accounts]);
 
   let header = "";
 
@@ -60,17 +68,19 @@ export default function Profile() {
     <main className="main bg-dark">
       {header}
       <h2 className="sr-only">Accounts</h2>
-      <>
-        {accounts.map((account) => {
-          return (
-            <AccountBalance
-              title={account.title}
-              key={account.title}
-              balance={account.balance}
-            />
-          );
-        })}
-      </>
+      {accounts && (
+        <>
+          {accounts.map((account) => {
+            return (
+              <AccountBalance
+                title={account.title}
+                key={account.title}
+                balance={account.balance}
+              />
+            );
+          })}
+        </>
+      )}
     </main>
   );
 }
