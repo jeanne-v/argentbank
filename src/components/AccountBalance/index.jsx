@@ -3,7 +3,7 @@ export default function AccountBalance({ title, balance }) {
     <section className="account">
       <div className="account-content-wrapper">
         <h3 className="account-title">{title}</h3>
-        <p className="account-amount">
+        <p className="account-amount" data-testid="account-balance">
           {balance.toLocaleString("en-US", { style: "currency", currency: "USD" })}
         </p>
         <p className="account-amount-description">Available Balance</p>

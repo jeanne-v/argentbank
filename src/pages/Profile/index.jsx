@@ -37,7 +37,7 @@ export default function Profile() {
   if (!isInEditMode) {
     header = (
       <div className="header">
-        <h1>
+        <h1 data-testid="welcome-user">
           Welcome back
           <br />
           {userFirstName} {userLastName}!
