@@ -1,28 +1,27 @@
 import { describe, it, expect } from "vitest";
 import { screen } from "@testing-library/react";
-import { renderWithWrapper } from "../../tests/utils";
-import AppRoutes from ".";
+import { renderApp } from "../../tests/utils";
 
-describe("Navigation tests suite", () => {
+describe("Routes tests suite", () => {
   it("should render home page on / route", () => {
-    renderWithWrapper(<AppRoutes />, { route: "/" });
+    renderApp({ route: "/" });
     expect(
       screen.getByText("Open a savings account with Argent Bank today!"),
     ).toBeInTheDocument();
   });
 
   it("should render login page on /login route", () => {
-    renderWithWrapper(<AppRoutes />, { route: "/login" });
+    renderApp({ route: "/login" });
     expect(screen.getByTestId("signin-btn")).toBeInTheDocument();
   });
 
   it("should redirect to login page when trying to access /profile when not logged in", () => {
-    renderWithWrapper(<AppRoutes />, { route: "/profile" });
+    renderApp({ route: "/profile" });
     expect(screen.getByTestId("signin-btn")).toBeInTheDocument();
   });
 
   it("should render profile page on /profile route when logged in", () => {
-    renderWithWrapper(<AppRoutes />, {
+    renderApp({
       route: "/profile",
       preloadedState: { auth: { isLoggedIn: true } },
     });

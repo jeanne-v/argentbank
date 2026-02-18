@@ -21,7 +21,7 @@ export default function Header() {
   if (isLoggedIn) {
     nav = (
       <div>
-        <NavLink className="main-nav-item" to="/profile">
+        <NavLink data-testid="logged-link" className="main-nav-item" to="/profile">
           <i className="fa fa-user-circle"></i> {userFirstName}
         </NavLink>
         <button className="main-nav-item" onClick={handleLogoutClick}>
