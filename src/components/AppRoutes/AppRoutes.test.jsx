@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { renderApp } from "../../tests/utils";
 
 describe("Routes tests suite", () => {
@@ -26,5 +27,18 @@ describe("Routes tests suite", () => {
       preloadedState: { auth: { isLoggedIn: true } },
     });
     expect(screen.getByTestId("welcome-user")).toBeInTheDocument();
+  });
+});
+
+describe("Integration test", () => {
+  it("should display user info on profile page after logging in", async () => {
+    const user = userEvent.setup();
+    renderApp();
+    await user.click(screen.getByText("Sign In"));
+    await user.type(screen.getByText("Username"), "test-email");
+    await user.type(screen.getByText("Password"), "test-password");
+    await user.click(screen.getByTestId("signin-btn"));
+    const userMsg = await screen.findByText(/Joe Schmoe/i);
+    expect(userMsg).toBeInTheDocument();
   });
 });

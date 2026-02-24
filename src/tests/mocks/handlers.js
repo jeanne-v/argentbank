@@ -12,6 +12,23 @@ const handlers = [
       return HttpResponse.json({ message: "Error : wrong credentials" }, { status: 400 });
     }
   }),
+  http.post("http://localhost:3001/api/v1/user/profile", async ({ request }) => {
+    if (request.headers.get("Authorization") === "Bearer mockToken") {
+      return HttpResponse.json(
+        {
+          message: "Successfully got user profile data",
+          body: {
+            email: "joeschmoe@email.com",
+            firstName: "Joe",
+            lastName: "Schmoe",
+          },
+        },
+        { status: 200 },
+      );
+    } else {
+      return HttpResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+  }),
 ];
 
 export default handlers;
