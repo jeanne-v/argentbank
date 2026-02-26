@@ -52,8 +52,20 @@ export default function Profile() {
       <div className="header">
         <h1>Welcome back</h1>
         <form action={submitEditForm} className="edit-infos-form">
-          <input type="text" name="firstName" required placeholder={userFirstName} />
-          <input type="text" name="lastName" required placeholder={userLastName} />
+          <input
+            data-testid="firstNameInput"
+            type="text"
+            name="firstName"
+            required
+            placeholder={userFirstName}
+          />
+          <input
+            data-testid="lastNameInput"
+            type="text"
+            name="lastName"
+            required
+            placeholder={userLastName}
+          />
 
           <button type="submit">Save</button>
           <button type="button" onClick={() => setIsInEditMode(false)}>
