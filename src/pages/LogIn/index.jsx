@@ -40,7 +40,9 @@ export default function LogIn() {
             <input type="checkbox" id="remember-me" name="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          <button className="sign-in-button">Sign In</button>
+          <button data-testid="signin-btn" className="sign-in-button">
+            Sign In
+          </button>
           {logInError && <p className="sign-in-error">{logInError}</p>}
         </form>
       </section>
