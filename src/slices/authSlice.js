@@ -7,26 +7,22 @@ const initialState = {
   loading: false,
 };
 
-const login = createAsyncThunk("login", async (credentials, { rejectWithValue }) => {
-  try {
-    const res = await fetch("http://localhost:3001/api/v1/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    });
+const login = createAsyncThunk("login", async (credentials) => {
+  const res = await fetch("http://localhost:3001/api/v1/user/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  });
 
-    const resData = await res.json();
+  const resData = await res.json();
 
-    if (!res.ok) {
-      throw new Error(resData.message);
-    }
-
-    return resData.body.token;
-  } catch (err) {
-    return rejectWithValue(err.message);
+  if (!res.ok) {
+    throw new Error(resData.message);
   }
+
+  return resData.body.token;
 });
 
 const logout = createAsyncThunk("logout", async () => {});
@@ -48,7 +44,7 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.error.message;
       })
       .addCase(logout.fulfilled, () => initialState);
   },

@@ -7,51 +7,40 @@ const initialState = {
   infos: null,
 };
 
-const fetchUser = createAsyncThunk("fetchUser", async (token, { rejectWithValue }) => {
-  try {
-    const res = await fetch("http://localhost:3001/api/v1/user/profile", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const resData = await res.json();
+const fetchUser = createAsyncThunk("fetchUser", async (token) => {
+  const res = await fetch("http://localhost:3001/api/v1/user/profile", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const resData = await res.json();
 
-    if (!res.ok) {
-      throw new Error(resData.message);
-    }
-
-    return resData.body;
-  } catch (err) {
-    return rejectWithValue(err.message);
+  if (!res.ok) {
+    throw new Error(resData.message);
   }
+
+  return resData.body;
 });
 
-const updateUser = createAsyncThunk(
-  "updateUser",
-  async ({ data, token }, { rejectWithValue }) => {
-    try {
-      const res = await fetch("http://localhost:3001/api/v1/user/profile", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
-      });
+const updateUser = createAsyncThunk("updateUser", async ({ data, token }) => {
+  const res = await fetch("http://localhost:3001/api/v1/user/profile", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
 
-      const resData = await res.json();
+  const resData = await res.json();
 
-      if (!res.ok) {
-        throw new Error(resData.message);
-      }
+  if (!res.ok) {
+    throw new Error(resData.message);
+  }
 
-      return resData.body;
-    } catch (err) {
-      return rejectWithValue(err.message);
-    }
-  },
-);
+  return resData.body;
+});
 
 const userSlice = createSlice({
   name: "user",
@@ -69,7 +58,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.error.message;
       })
       .addCase(updateUser.pending, (state) => {
         state.loading = true;
@@ -81,7 +70,7 @@ const userSlice = createSlice({
       })
       .addCase(updateUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.error.message;
       })
       .addCase(logout.fulfilled, () => initialState);
   },
